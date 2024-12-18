@@ -2,7 +2,9 @@
 
 import React from "react";
 import { Amplify } from "aws-amplify";
-import "./app.css";
+// import "./app.css";
+import "@cloudscape-design/global-styles/index.css"
+
 
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
