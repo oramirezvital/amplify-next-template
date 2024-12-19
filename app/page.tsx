@@ -115,8 +115,7 @@ export default function AppLayoutPreview() {
                 ariaLabels={{
                   selectionGroupLabel: "Items selection",
                   allItemsSelectionLabel: () => "select all",
-                  itemSelectionLabel: ({ selectedItems }, item) =>
-                    item.id
+                  
                 }}
                 columnDefinitions={[
                   {
