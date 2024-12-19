@@ -47,8 +47,8 @@ export default function AppLayoutPreview() {
     listTodos();
   }, []);
 
-  const [selectedItems, setSelectedItems] = React.useState([]);
-  const [selectedItem, setSelectedItem] = React.useState(null);
+  const [selectedItems, setSelectedItems] = React.useState<Schema["Todo"]["type"][]>([]);
+  const [selectedItem, setSelectedItem] = React.useState<Schema["Todo"]["type"] | null>(null);
 
   return (
     <I18nProvider locale={LOCALE} messages={[messages]}>
