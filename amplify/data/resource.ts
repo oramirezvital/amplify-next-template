@@ -10,11 +10,17 @@ const schema = a.schema({
   Todo: a
     .model({
       id: a.string(),
-      datetime: a.string(),
-      customerID: a.string(),
       agentID: a.string(),
+      churn_risk_score: a.string(),
+      churn_risk_explanation: a.string(),
+      csat_score: a.string(),
+      csat_explanation: a.string(),
+      customerID: a.string(),
+      datetime: a.string(),
       input: a.string(),
       output: a.string(),
+      sentiment_analysis: a.string(),
+      summary: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 });
