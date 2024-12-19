@@ -17,6 +17,7 @@ import {
   Link,
   SideNavigation,
   SplitPanel,
+  KeyValuePairs,
 } from '@cloudscape-design/components';
 import Table from "@cloudscape-design/components/table";
 import Box from "@cloudscape-design/components/box";
@@ -76,9 +77,7 @@ export default function AppLayoutPreview() {
           />
         }
 
-        //toolsOpen={true}
-        //tools={<HelpPanel header={<h2>Overview</h2>}>Help content</HelpPanel>}
-        
+        splitPanelOpen={true}
         content={
           <ContentLayout
             header={
@@ -266,19 +265,23 @@ export default function AppLayoutPreview() {
         splitPanel={
           <SplitPanel header="Transcript analysis">
             {selectedItem ? (
-              <div>
-                
-                <h3>ID: {selectedItem.id}</h3>
-                <p>Customer ID: {selectedItem.customerID}</p>
-                <p>Agent ID: {selectedItem.agentID}</p>
-                <p>CSAT: {selectedItem.csat_score}</p>
-                <p>CSAT Explanation: {selectedItem.csat_explanation}</p>
-                <p>Churn Risk: {selectedItem.churn_risk_score}</p>
-                <p>Churn Risk Explanation: {selectedItem.churn_risk_explanation}</p>
-                <p>Sentiment Analysis: {selectedItem.sentiment_analysis}</p>
-                <p>Date Time: {selectedItem.datetime}</p>
-                <p>Summary: {selectedItem.summary}</p>
-              </div>
+              <KeyValuePairs
+                columns={2}
+                items={[
+                  { label: 'ID', value: selectedItem.id },
+                  { label: 'Date Time', value: selectedItem.datetime },
+                  { label: 'Customer ID', value: selectedItem.customerID },
+                  { label: 'Agent ID', value: selectedItem.agentID },
+                  { label: 'Summary', value: selectedItem.summary },
+                  { label: 'Sentiment Analysis', value: selectedItem.sentiment_analysis },
+
+                  { label: 'CSAT', value: selectedItem.csat_score },
+                  { label: 'CSAT Explanation', value: selectedItem.csat_explanation },
+                  { label: 'Churn Risk', value: selectedItem.churn_risk_score },
+                  { label: 'Churn Risk Explanation', value: selectedItem.churn_risk_explanation },
+
+                ]}
+              />
             ) : (
               <p>Select an item from the table to view details.</p>
             )}
