@@ -265,6 +265,7 @@ export default function AppLayoutPreview() {
         splitPanel={
           <SplitPanel header="Transcript analysis">
             {selectedItem ? (
+              <>
               <KeyValuePairs
                 columns={2}
                 items={[
@@ -282,6 +283,19 @@ export default function AppLayoutPreview() {
 
                 ]}
               />
+              <div>
+                  <h3>Transcript</h3>
+                  <p>Customer: Hola, necesito ayuda con mi plan de datos.</p>
+                  <p>Agent: ¡Hola! Estaré encantado de ayudarlo con su plan de datos. ¿Podría brindarme su número de cuenta?</p>
+                  <p>Customer: Claro, mi número de cuenta es 12345679099.</p>
+                  <p>Agent: Gracias por proporcionarme su número de cuenta. Permítame consultar los detalles de su plan.</p>
+                  <p>Agent: Según veo, actualmente tiene un plan de datos de 5GB al mes. ¿Cuál es el problema que está teniendo?.</p>
+                  <p>Customer: Sí, me he quedado sin datos antes de que termine el mes y necesito aumentar mi límite de datos.</p>
+                  <p>Agent: ¡Entiendo. Podemos actualizar su plan a uno de 10GB por un costo adicional de $10 al mes. ¿Le gustaría hacer ese cambio?</p>
+                  <p>Customer: Sí, por favor, haga el cambio al plan de 10GB..</p>
+                 
+                </div>
+                </>
             ) : (
               <p>Select an item from the table to view details.</p>
             )}
