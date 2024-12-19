@@ -6,8 +6,6 @@ import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 const client = generateClient<Schema>();
 
-
-
 import {
   AppLayout,
   BreadcrumbGroup,
@@ -48,12 +46,8 @@ export default function AppLayoutPreview() {
     listTodos();
   }, []);
 
-
-
-  const [
-    selectedItems,
-    setSelectedItems
-  ] = React.useState([{ name: "Item 2" }]);
+  const [selectedItems, setSelectedItems] = React.useState([]);
+  const [selectedItem, setSelectedItem] = React.useState(null);
 
   return (
     <I18nProvider locale={LOCALE} messages={[messages]}>
@@ -74,9 +68,9 @@ export default function AppLayoutPreview() {
               text: 'Post Chat Analytics',
             }}
             items={[
-            { type: 'link', text: `Chat List`, href: `#` },
-            { type: 'link', text: `Upload transcript`, href: `#` },
-            { type: 'link', text: `Sign out`, href: `#` }
+              { type: 'link', text: `Chat List`, href: `#` },
+              { type: 'link', text: `Upload transcript`, href: `#` },
+              { type: 'link', text: `Sign out`, href: `#` }
             ]}
 
           />
@@ -84,6 +78,7 @@ export default function AppLayoutPreview() {
 
         //toolsOpen={true}
         //tools={<HelpPanel header={<h2>Overview</h2>}>Help content</HelpPanel>}
+        
         content={
           <ContentLayout
             header={
@@ -109,9 +104,14 @@ export default function AppLayoutPreview() {
                 }) =>
                   `Displaying items ${firstIndex} to ${lastIndex} of ${totalItemsCount}`
                 }
-                onSelectionChange={({ detail }) =>
-                  setSelectedItems(detail.selectedItems)
-                }
+                onSelectionChange={({ detail }) => {
+                  setSelectedItems(detail.selectedItems);
+                  if (detail.selectedItems.length > 0) {
+                    setSelectedItem(detail.selectedItems[0]);
+                  } else {
+                    setSelectedItem(null);
+                  }
+                }}
                 selectedItems={selectedItems}
                 ariaLabels={{
                   selectionGroupLabel: "Items selection",
@@ -142,17 +142,17 @@ export default function AppLayoutPreview() {
                     id: "csat",
                     header: "CSAT",
                     cell: item => item.csat_score
-                  },      
+                  },
                   {
                     id: "churn_risk_score",
                     header: "Churn Risk",
                     cell: item => item.churn_risk_score
-                  },  
+                  },
                   {
                     id: "sentiment_analysis",
                     header: "Sentiment Analysis",
                     cell: item => item.sentiment_analysis
-                  },                 
+                  },
                   {
                     id: "datetime",
                     header: "Date Time",
@@ -169,11 +169,6 @@ export default function AppLayoutPreview() {
                   { id: "datetime", visible: true },
                 ]}
                 enableKeyboardNavigation
-
-
-
-
-
                 items={todos}
                 loadingText="Loading resources"
                 selectionType="multi"
@@ -268,7 +263,27 @@ export default function AppLayoutPreview() {
             </Container>
           </ContentLayout>
         }
-        splitPanel={<SplitPanel header="Transcript analysis"></SplitPanel>}
+        splitPanel={
+          <SplitPanel header="Transcript analysis">
+            {selectedItem ? (
+              <div>
+                
+                <h3>ID: {selectedItem.id}</h3>
+                <p>Customer ID: {selectedItem.customerID}</p>
+                <p>Agent ID: {selectedItem.agentID}</p>
+                <p>CSAT: {selectedItem.csat_score}</p>
+                <p>CSAT Explanation: {selectedItem.csat_explanation}</p>
+                <p>Churn Risk: {selectedItem.churn_risk_score}</p>
+                <p>Churn Risk Explanation: {selectedItem.churn_risk_explanation}</p>
+                <p>Sentiment Analysis: {selectedItem.sentiment_analysis}</p>
+                <p>Date Time: {selectedItem.datetime}</p>
+                <p>Summary: {selectedItem.summary}</p>
+              </div>
+            ) : (
+              <p>Select an item from the table to view details.</p>
+            )}
+          </SplitPanel>
+        }
       />
     </I18nProvider>
   );
